@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
+import Link from "next/link";
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,15 +73,21 @@ export default function Menu() {
           >
             <div className="flex flex-col p-2">
               <nav className="flex flex-col gap-1">
-                {["About", "Blog", "FAQ", "Login"].map((item) => (
-                  <motion.a
-                    key={item}
-                    variants={itemVariants}
-                    href="#"
-                    className="px-4 py-2 text-center text-hendogray hover:bg-black/5 rounded-lg transition-colors text-sm font-medium dm-sans"
-                  >
-                    {item}
-                  </motion.a>
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "About", href: "/navigation/about" },
+                  { label: "Blog", href: "#" },
+                  { label: "FAQ", href: "/navigation/faq" },
+                  { label: "Login", href: "#" },
+                ].map((item) => (
+                  <motion.div key={item.label} variants={itemVariants}>
+                    <Link
+                      href={item.href}
+                      className="block px-4 py-2 text-center text-hendogray hover:bg-black/5 rounded-lg transition-colors text-sm font-medium dm-sans"
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
                 ))}
               </nav>
             </div>

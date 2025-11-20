@@ -44,8 +44,7 @@ export default function SignUpPage() {
 
 
       <main className="flex-1 flex flex-col items-center justify-center px-4">
-
-        <div className="max-w-sm w-full flex flex-col items-center gap-8">
+        <div className="max-w-[320px] sm:max-w-sm w-full flex flex-col items-center gap-6">
           
           {/* Logo */}
           <div className="mb-2">
@@ -71,7 +70,7 @@ export default function SignUpPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#333]">Yo! new here?</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#333]">Yo! new here?</h1>
 
           {/* Form */}
           <div className="w-full space-y-4">
@@ -85,7 +84,7 @@ export default function SignUpPage() {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-14 py-4 rounded-[32px] focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
+                className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-[32px] text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
               />
             </div>
 
@@ -99,7 +98,7 @@ export default function SignUpPage() {
                 placeholder="Email@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-14 py-4 rounded-[32px] focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
+                className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-[32px] text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
               />
             </div>
 
@@ -113,7 +112,7 @@ export default function SignUpPage() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-14 py-4 rounded-[32px] focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
+                className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-[32px] text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
               />
             </div>
           </div>
@@ -122,7 +121,7 @@ export default function SignUpPage() {
           <motion.button
             onClick={handleSignUp}
             disabled={loading}
-            className="bg-[#61EB76] text-[#40800C] px-8 py-3 rounded-full text-lg font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full"
+            className="bg-[#61EB76] text-[#40800C] px-8 py-3 rounded-full text-base font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full"
             initial="initial"
             whileHover="hover"
             whileTap={{ scale: 0.98 }}

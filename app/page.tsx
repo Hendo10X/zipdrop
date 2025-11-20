@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import GetStartedButton from "@/components/GetStartedButton";
 
 import Menu from "@/components/Menu";
@@ -17,14 +18,16 @@ export default function Home() {
           
           {/* Logo Badge */}
           <div className="mb-2">
-            <Image 
-              src="/zipcode.svg" 
-              alt="zipdrop" 
-              width={106} 
-              height={28} 
-              className="h-6 sm:h-8 w-auto"
-              priority
-            />
+            <Link href="/">
+              <Image 
+                src="/zipcode.svg" 
+                alt="zipdrop" 
+                width={106} 
+                height={28} 
+                className="h-6 sm:h-8 w-auto"
+                priority
+              />
+            </Link>
           </div>
 
           {/* Text Content */}

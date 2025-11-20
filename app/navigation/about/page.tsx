@@ -1,5 +1,6 @@
 import Menu from "@/components/Menu";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -14,14 +15,16 @@ export default function AboutPage() {
           
           {/* Logo */}
           <div className="mb-2">
-            <Image 
-              src="/zipcode.svg" 
-              alt="zipdrop" 
-              width={106} 
-              height={28} 
-              className="h-6 sm:h-8 w-auto"
-              priority
-            />
+            <Link href="/">
+              <Image 
+                src="/zipcode.svg" 
+                alt="zipdrop" 
+                width={106} 
+                height={28} 
+                className="h-6 sm:h-8 w-auto"
+                priority
+              />
+            </Link>
           </div>
 
           {/* Heading */}

@@ -45,7 +45,10 @@ export default function Home() {
           </div>
 
           {/* CTA Button */}
-          <div className="w-full flex justify-end mt-2">
+          <div className="w-full flex justify-between items-center mt-2">
+            <span className="text-sm font-medium text-hendogray/60">
+              built by hendo
+            </span>
             <GetStartedButton />
           </div>
         </div>

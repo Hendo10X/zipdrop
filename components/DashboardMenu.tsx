@@ -47,18 +47,18 @@ export default function DashboardMenu() {
           isOpen 
             ? "bg-[#61EB76] text-[#40800C]" 
             : "bg-[#E5E5E5] hover:bg-[#d4d4d4] text-hendogray"
-        } px-4 py-1.5 sm:px-6 sm:py-2 rounded-full text-sm font-medium transition-colors dm-sans z-50 relative w-[80px] h-[36px] flex items-center justify-center overflow-hidden`}
+        } px-4 py-1.5 sm:px-6 sm:py-2 rounded-full text-sm font-medium transition-colors dm-sans z-50 relative w-[120px] h-[36px] flex items-center justify-center overflow-hidden`}
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
-            key={isOpen ? "close" : "menu"}
+            key={isOpen ? "close" : "Dashboard"}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute"
           >
-            {isOpen ? "Close" : "Menu"}
+            {isOpen ? "Close" : "Dashboard"}
           </motion.span>
         </AnimatePresence>
       </button>

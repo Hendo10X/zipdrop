@@ -45,9 +45,9 @@ export default function DashboardMenu() {
         onClick={() => setIsOpen(!isOpen)}
         className={`${
           isOpen 
-            ? "bg-[#61EB76] text-[#40800C]" 
+            ? "bg-[#61EB76] text-[#40800C] hover:bg-[#40800C] hover:text-[#61EB76]" 
             : "bg-[#E5E5E5] hover:bg-[#d4d4d4] text-hendogray"
-        } px-4 py-1.5 sm:px-6 sm:py-2 rounded-full text-sm font-medium transition-colors dm-sans z-50 relative w-[120px] h-[36px] flex items-center justify-center overflow-hidden`}
+        } px-4 py-1.5 sm:px-6 sm:py-2 rounded-full text-sm font-medium transition-colors dm-sans z-50 relative w-[80px] h-[36px] flex items-center justify-center overflow-hidden`}
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -58,7 +58,7 @@ export default function DashboardMenu() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute"
           >
-            {isOpen ? "Close" : "Dashboard"}
+            {isOpen ? "Close" : "Menu"}
           </motion.span>
         </AnimatePresence>
       </button>

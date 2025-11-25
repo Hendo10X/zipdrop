@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
 import Link from "next/link";
+import { Logout } from "@/components/logout";
 
-export default function Menu() {
+export default function DashboardMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuVariants: Variants = {
@@ -74,21 +75,25 @@ export default function Menu() {
             <div className="flex flex-col p-2">
               <nav className="flex flex-col gap-1">
                 {[
-                  { label: "Home", href: "/" },
-                  { label: "About", href: "/navigation/about" },
-                  { label: "Blog", href: "#" },
-                  { label: "FAQ", href: "/navigation/faq" },
-                  { label: "Login", href: "/login" },
+                  { label: "Overview", href: "/dashboard" },
+                  { label: "Saved", href: "/dashboard/saved" },
+                  { label: "Activity", href: "/dashboard/activity"},
+                  { label: "Profile", href: "/dashboard/profile" },
+                  { label: "Settings", href: "/dashboard/settings" },
                 ].map((item) => (
                   <motion.div key={item.label} variants={itemVariants}>
                     <Link
                       href={item.href}
                       className="block px-4 py-2 text-center text-hendogray hover:bg-black/5 rounded-lg transition-colors text-sm font-medium dm-sans"
+                      onClick={() => setIsOpen(false)}
                     >
                       {item.label}
                     </Link>
                   </motion.div>
                 ))}
+                <motion.div variants={itemVariants}>
+                   <Logout />
+                </motion.div>
               </nav>
             </div>
           </motion.div>

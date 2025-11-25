@@ -1,10 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Mail, Lock, ArrowRight } from "lucide-react";
-import { motion } from "motion/react";
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -13,31 +9,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { toast } from "sonner";
+import { LoginForm } from "@/components/LoginForm";
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSignIn = async () => {
-    setLoading(true);
-    await authClient.signIn.email({
-      email,
-      password,
-    }, {
-      onSuccess: () => {
-        setLoading(false);
-        router.push("/"); // Redirect to home or dashboard
-      },
-      onError: (ctx) => {
-        setLoading(false);
-        toast.error(ctx.error.message);
-      },
-    });
-  };
-
   return (
     <div className="min-h-screen bg-[#F3F3F3] flex flex-col relative font-sans text-hendogray dm-sans">
 
@@ -70,75 +44,8 @@ export default function LoginPage() {
           {/* Heading */}
           <h1 className="text-2xl sm:text-3xl font-bold text-[#333]">Hey! Jump in</h1>
 
-          {/* Form & Forgot Password */}
-          <div className="w-full space-y-2">
-            <div className="w-full space-y-4">
-              {/* Email Input */}
-              <div className="relative group">
-                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#40800C] transition-colors duration-300">
-                  <Mail size={18} />
-                </div>
-                <input
-                  type="email"
-                  placeholder="Email@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-[32px] text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
-                />
-              </div>
-
-              {/* Password Input */}
-              <div className="relative group">
-                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#40800C] transition-colors duration-300">
-                  <Lock size={18} />
-                </div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-[32px] text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
-                />
-              </div>
-            </div>
-
-            {/* Forgot Password */}
-            <div className="w-full text-right text-sm text-hendogray/60">
-              Forgot your password? <span className="underline decoration-hendogray/40">Well that sucks.</span>
-            </div>
-          </div>
-
-          {/* Login Button */}
-          <motion.button
-            onClick={handleSignIn}
-            disabled={loading}
-            className="bg-[#61EB76] text-[#40800C] px-8 py-3 rounded-full text-base font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full"
-            initial="initial"
-            whileHover="hover"
-            whileTap={{ scale: 0.98 }}
-          >
-            <motion.div
-              className="flex items-center gap-2"
-              variants={{
-                initial: { y: 0, opacity: 1 },
-                hover: { y: -20, opacity: 0 }
-              }}
-              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            >
-              {loading ? "Logging in..." : "Log in"}
-            </motion.div>
-
-            <motion.div
-              className="flex items-center gap-2 absolute inset-0 justify-center"
-              variants={{
-                initial: { y: 20, opacity: 0 },
-                hover: { y: 0, opacity: 1 }
-              }}
-              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            >
-              {loading ? "Logging in..." : "Log in"}
-            </motion.div>
-          </motion.button>
+          {/* Login Form */}
+          <LoginForm />
 
           {/* Footer Link */}
           <Link href="/sign-up" className="text-sm font-medium text-hendogray/60 transition-colors flex items-center gap-1 group">

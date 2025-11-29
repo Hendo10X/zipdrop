@@ -25,7 +25,7 @@ export function Logout() {
   };
   return (
     <button
-      className="w-full block px-4 py-2 text-center text-hendogray hover:bg-black/5 rounded-lg transition-colors text-sm font-medium dm-sans"
+      className="w-full block px-4 py-2 text-center text-hendogray hover:bg-black/5 rounded transition-colors text-sm font-medium dm-sans"
       disabled={isLoading}
       onClick={handleLogout}
     >

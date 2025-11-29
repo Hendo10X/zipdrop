@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MapPin, Activity, Loader2, ArrowRight } from "lucide-react";
-import { getUser } from "@/server/user";
+import { getUserClient as getUser } from "@/lib/user-client";
 import Link from "next/link";
 
 type UserData = {
@@ -29,7 +29,9 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [savedAddressCount, setSavedAddressCount] = useState(0);
   const [recentActivities, setRecentActivities] = useState<ActivityItem[]>([]);
-  const [recentAddresses, setRecentAddresses] = useState<SavedAddressType[]>([]);
+  const [recentAddresses, setRecentAddresses] = useState<SavedAddressType[]>(
+    []
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,14 +87,14 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F3F3F3]">
+      <div className="flex min-h-[50vh] items-center justify-center">
         <Loader2 className="animate-spin text-[#40800C]" size={40} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F3F3F3] px-6 py-8">
+    <div className="px-6 py-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
@@ -104,7 +106,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="rounded border border-gray-200 bg-white p-6 ">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">
@@ -114,20 +116,19 @@ export default function DashboardPage() {
                   {savedAddressCount}
                 </p>
               </div>
-              <div className="rounded-lg bg-[#61EB76]/10 p-3">
+              <div className="rounded-full bg-[#61EB76]/10 p-3">
                 <MapPin className="text-[#40800C]" size={24} />
               </div>
             </div>
             <Link
               href="/dashboard/saved"
-              className="mt-4 flex items-center text-sm font-medium text-[#40800C] hover:underline"
-            >
+              className="mt-4 flex items-center text-sm font-medium text-[#40800C] hover:underline">
               View all
               <ArrowRight size={16} className="ml-1" />
             </Link>
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="rounded border border-gray-200 bg-white p-6 ">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">
@@ -137,23 +138,24 @@ export default function DashboardPage() {
                   {recentActivities.length}
                 </p>
               </div>
-              <div className="rounded-lg bg-[#61EB76]/10 p-3">
+              <div className="rounded-full bg-[#61EB76]/10 p-3">
                 <Activity className="text-[#40800C]" size={24} />
               </div>
             </div>
             <Link
               href="/dashboard/activity"
-              className="mt-4 flex items-center text-sm font-medium text-[#40800C] hover:underline"
-            >
+              className="mt-4 flex items-center text-sm font-medium text-[#40800C] hover:underline">
               View all
               <ArrowRight size={16} className="ml-1" />
             </Link>
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:col-span-2 lg:col-span-1">
+          <div className="rounded border border-gray-200 bg-white p-6  sm:col-span-2 lg:col-span-1">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Quick Action</p>
+                <p className="text-sm font-medium text-gray-600">
+                  Quick Action
+                </p>
                 <p className="mt-2 text-sm text-gray-600">
                   Verify a new address
                 </p>
@@ -161,15 +163,14 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/verify"
-              className="mt-4 block rounded-lg bg-[#40800C] px-4 py-2 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-[#40800C]/90"
-            >
+              className="mt-4 block rounded-full bg-[#61EB76] px-4 py-2 text-center text-sm font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90">
               Verify Address
             </Link>
           </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="rounded border border-gray-200 bg-white p-6 ">
             <h2 className="mb-4 text-lg font-semibold text-gray-900">
               Recent Addresses
             </h2>
@@ -180,8 +181,7 @@ export default function DashboardPage() {
                 <p className="text-sm text-gray-500">No addresses saved yet</p>
                 <Link
                   href="/verify"
-                  className="mt-2 text-sm font-medium text-[#40800C] hover:underline"
-                >
+                  className="mt-2 text-sm font-medium text-[#40800C] hover:underline">
                   Verify your first address
                 </Link>
               </div>
@@ -190,9 +190,8 @@ export default function DashboardPage() {
                 {recentAddresses.map((address) => (
                   <div
                     key={address.id}
-                    className="flex items-start gap-3 rounded-lg border border-gray-100 p-3 transition-all hover:border-gray-200 hover:bg-gray-50"
-                  >
-                    <div className="rounded bg-[#61EB76]/10 p-2">
+                    className="flex items-start gap-3 rounded border border-gray-100 p-3 transition-all hover:border-gray-200 hover:bg-gray-50">
+                    <div className="rounded-full bg-[#61EB76]/10 p-2">
                       <MapPin className="text-[#40800C]" size={16} />
                     </div>
                     <div className="flex-1">
@@ -210,8 +209,7 @@ export default function DashboardPage() {
                 ))}
                 <Link
                   href="/dashboard/saved"
-                  className="mt-4 flex items-center justify-center text-sm font-medium text-[#40800C] hover:underline"
-                >
+                  className="mt-4 flex items-center justify-center text-sm font-medium text-[#40800C] hover:underline">
                   View all addresses
                   <ArrowRight size={16} className="ml-1" />
                 </Link>
@@ -219,7 +217,7 @@ export default function DashboardPage() {
             )}
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="rounded border border-gray-200 bg-white p-6 ">
             <h2 className="mb-4 text-lg font-semibold text-gray-900">
               Recent Activity
             </h2>
@@ -234,9 +232,8 @@ export default function DashboardPage() {
                 {recentActivities.map((activity) => (
                   <div
                     key={activity.id}
-                    className="flex items-start gap-3 rounded-lg border border-gray-100 p-3"
-                  >
-                    <div className="rounded bg-[#61EB76]/10 p-2">
+                    className="flex items-start gap-3 rounded border border-gray-100 p-3">
+                    <div className="rounded-full bg-[#61EB76]/10 p-2">
                       <Activity className="text-[#40800C]" size={16} />
                     </div>
                     <div className="flex-1">
@@ -244,7 +241,9 @@ export default function DashboardPage() {
                         {activity.action.replace(/_/g, " ").toUpperCase()}
                       </p>
                       {activity.details && (
-                        <p className="text-sm text-gray-600">{activity.details}</p>
+                        <p className="text-sm text-gray-600">
+                          {activity.details}
+                        </p>
                       )}
                       <p className="mt-1 text-xs text-gray-400">
                         {formatDate(activity.createdAt)}
@@ -254,8 +253,7 @@ export default function DashboardPage() {
                 ))}
                 <Link
                   href="/dashboard/activity"
-                  className="mt-4 flex items-center justify-center text-sm font-medium text-[#40800C] hover:underline"
-                >
+                  className="mt-4 flex items-center justify-center text-sm font-medium text-[#40800C] hover:underline">
                   View all activity
                   <ArrowRight size={16} className="ml-1" />
                 </Link>

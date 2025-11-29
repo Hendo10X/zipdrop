@@ -85,7 +85,7 @@ export function AddressSearchForm({
             {...register("address")}
             type="text"
             placeholder="Enter street address or landmark"
-            className="w-full rounded-lg border border-gray-300 bg-white px-12 py-4 text-gray-900 placeholder-gray-400 transition-all duration-200 focus:border-[#40800C] focus:outline-none focus:ring-2 focus:ring-[#40800C]/20"
+            className="w-full rounded border border-gray-300 bg-white px-12 py-4 text-gray-900 placeholder-gray-400 transition-all duration-200 focus:border-[#40800C] focus:outline-none focus:ring-2 focus:ring-[#40800C]/20"
             disabled={isVerifying}
           />
         </div>
@@ -98,7 +98,7 @@ export function AddressSearchForm({
           <button
             type="submit"
             disabled={isVerifying}
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#40800C] px-6 py-4 font-semibold text-white transition-all duration-200 hover:bg-[#40800C]/90 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#61EB76] px-6 py-4 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Search size={20} />
             {isVerifying ? "Verifying..." : "Verify Address"}
@@ -108,7 +108,7 @@ export function AddressSearchForm({
             <button
               type="button"
               onClick={onGeolocationClick}
-              className="flex items-center justify-center gap-2 rounded-lg border-2 border-[#40800C] bg-white px-6 py-4 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#40800C]/5"
+              className="flex items-center justify-center gap-2 rounded-full border-2 border-[#40800C] bg-white px-6 py-4 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/5"
             >
               <MapPin size={20} />
               Use My Location

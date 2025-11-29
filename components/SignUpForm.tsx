@@ -107,7 +107,7 @@ export function SignUpForm() {
       <motion.button
         type="submit"
         disabled={loading}
-        className="bg-[#61EB76] text-[#40800C] px-8 py-3 rounded-full text-base font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full"
+        className="bg-[#61EB76] text-[#40800C] px-8 py-3 rounded text-base font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full"
         initial="initial"
         whileHover="hover"
         whileTap={{ scale: 0.98 }}

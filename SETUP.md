@@ -7,7 +7,7 @@ This guide will help you set up and run the Zipdrop application.
 - Node.js (v18 or later)
 - npm, yarn, or pnpm
 - A Neon database account (or any PostgreSQL database)
-- Google Maps API key
+- Mapbox access token (free tier available)
 
 ## Step 1: Install Dependencies
 
@@ -37,19 +37,22 @@ DATABASE_URL=postgresql://username:password@host/database?sslmode=require
 BETTER_AUTH_SECRET=your_random_secret_here
 BETTER_AUTH_URL=http://localhost:3000
 
-# Google Maps API - Get this from Google Cloud Console
-GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+# Mapbox API - Get this from Mapbox
+MAPBOX_ACCESS_TOKEN=your_mapbox_access_token
 ```
 
-### Getting a Google Maps API Key
+### Getting a Mapbox Access Token
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select an existing one
-3. Enable the following APIs:
-   - Geocoding API
-   - Places API (optional, for autocomplete)
-4. Go to "Credentials" and create an API key
-5. Copy the API key to your `.env.local` file
+1. Go to [Mapbox](https://account.mapbox.com/) and create a free account
+2. Navigate to your [Access tokens](https://account.mapbox.com/access-tokens/) page
+3. Copy your default public token, or create a new one
+4. Paste it into the `MAPBOX_ACCESS_TOKEN` in your `.env.local` file
+
+**Why Mapbox?**
+- 100,000 free geocoding requests per month
+- No credit card required for free tier
+- Simple setup with just an access token
+- Excellent geocoding accuracy worldwide
 
 ### Setting Up Neon Database
 
@@ -160,16 +163,22 @@ The application includes the following API routes:
 
 ## Troubleshooting
 
+### Issue: "MAPBOX_ACCESS_TOKEN is not configured"
+- **Solution**: Ensure the environment variable is set correctly
+- Check spelling and make sure there are no extra spaces
+- Restart the development server after adding env vars
+
+### Issue: "Failed to verify address"
+- **Solution**:
+  - Verify your Mapbox access token is correct
+  - Check if you've exceeded the free tier limit (100,000 requests/month)
+  - Ensure your token has the appropriate scopes
+  - Test the token at https://account.mapbox.com/access-tokens/
+
 ### Database Connection Issues
 - Ensure your `DATABASE_URL` is correct
 - Check that your database is accessible
 - Verify SSL mode is set correctly for Neon
-
-### Google Maps API Errors
-- Verify your API key is correct
-- Ensure Geocoding API is enabled in Google Cloud Console
-- Check that your API key has no restrictions preventing localhost access
-- Monitor your API usage to ensure you haven't exceeded quotas
 
 ### Build Errors
 - Delete `node_modules` and `.next` directories

@@ -21,7 +21,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-white group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-none group-[.toaster]:rounded-full font-sans data-[type=success]:bg-[#DCFCE7] data-[type=success]:text-[#15803D] data-[type=success]:border-none data-[type=error]:bg-[#FFE4E6] data-[type=error]:text-[#BE123C] data-[type=error]:border-none data-[type=warning]:bg-[#FEF9C3] data-[type=warning]:text-[#A16207] data-[type=warning]:border-none data-[type=info]:bg-[#F3E8FF] data-[type=info]:text-[#2563EB] data-[type=info]:border-none",
+            "group toast group-[.toaster]:bg-white group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]: group-[.toaster]:rounded font-sans data-[type=success]:bg-[#DCFCE7] data-[type=success]:text-[#15803D] data-[type=success]:border-none data-[type=error]:bg-[#FFE4E6] data-[type=error]:text-[#BE123C] data-[type=error]:border-none data-[type=warning]:bg-[#FEF9C3] data-[type=warning]:text-[#A16207] data-[type=warning]:border-none data-[type=info]:bg-[#F3E8FF] data-[type=info]:text-[#2563EB] data-[type=info]:border-none",
           description: "group-[.toast]:text-muted-foreground",
           actionButton:
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",

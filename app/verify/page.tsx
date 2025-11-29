@@ -1,18 +1,18 @@
 import { AddressVerificationSection } from "@/components/AddressVerificationSection";
 import Link from "next/link";
 import Image from "next/image";
-import Menu from "@/components/Menu";
+import DashboardMenu from "@/components/DashboardMenu";
 
 export default function VerifyPage() {
   return (
     <div className="min-h-screen bg-[#F3F3F3] font-sans text-hendogray dm-sans">
-      <header className="absolute right-0 top-0 z-50 p-4 sm:p-10">
-        <Menu />
+      <header className="fixed right-0 top-0 z-50 p-6 sm:p-10">
+        <DashboardMenu />
       </header>
 
-      <main className="flex min-h-screen flex-col items-center justify-center px-4 py-8 sm:px-8 sm:py-12">
-        <div className="flex w-full max-w-3xl flex-col gap-8">
-          <div className="mb-2">
+      <main className="flex min-h-screen flex-col px-4 py-20 sm:px-8 sm:py-24">
+        <div className="mx-auto w-full max-w-3xl space-y-12">
+          <div>
             <Link href="/">
               <Image
                 src="/zipcode.svg"
@@ -25,7 +25,7 @@ export default function VerifyPage() {
             </Link>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
               Verify Your Address
             </h1>
@@ -37,9 +37,9 @@ export default function VerifyPage() {
 
           <AddressVerificationSection />
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            <div className="rounded-lg border border-gray-200 bg-white p-6">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#61EB76]/10">
+          <div className="mt-16 grid gap-6 sm:grid-cols-3">
+            <div className="rounded border border-gray-200 bg-white p-6">
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#61EB76]/10">
                 <svg
                   className="text-[#40800C]"
                   width="24"
@@ -63,8 +63,8 @@ export default function VerifyPage() {
               </p>
             </div>
 
-            <div className="rounded-lg border border-gray-200 bg-white p-6">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#61EB76]/10">
+            <div className="rounded border border-gray-200 bg-white p-6">
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#61EB76]/10">
                 <svg
                   className="text-[#40800C]"
                   width="24"
@@ -89,8 +89,8 @@ export default function VerifyPage() {
               </p>
             </div>
 
-            <div className="rounded-lg border border-gray-200 bg-white p-6">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#61EB76]/10">
+            <div className="rounded border border-gray-200 bg-white p-6">
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#61EB76]/10">
                 <svg
                   className="text-[#40800C]"
                   width="24"

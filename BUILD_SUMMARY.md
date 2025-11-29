@@ -43,12 +43,12 @@ Added two new tables:
 **File**: `app/api/addresses/verify/route.ts`
 
 - **Endpoint**: `POST /api/addresses/verify`
-- **Function**: Validates addresses using Google Geocoding API
+- **Function**: Validates addresses using Mapbox Geocoding API
 - **Request Body**: `{ address: string }`
 - **Response**: Validated address with all components
 - **Features**:
   - Input validation with Zod
-  - Google Maps API integration
+  - Mapbox API integration (100,000 free requests/month)
   - Error handling for invalid addresses
   - Returns structured address components
   - Includes geographic coordinates
@@ -61,7 +61,7 @@ Added two new tables:
 - **Request Body**: `{ latitude: number, longitude: number }`
 - **Response**: Address data from coordinates
 - **Features**:
-  - Reverse geocoding via Google Maps API
+  - Reverse geocoding via Mapbox API
   - Coordinate validation
   - Detailed address components
   - Error handling for invalid coordinates
@@ -329,7 +329,10 @@ Each log entry includes:
 
 ## New Dependencies Used
 
-- **Google Maps Geocoding API** - Address validation and geolocation
+- **Mapbox Geocoding API** - Address validation and geolocation
+  - 100,000 free requests per month
+  - No credit card required for free tier
+  - Simple setup with access token
 - All other dependencies were already in the project
 
 ---
@@ -351,8 +354,10 @@ This creates:
 ## Environment Variables Required
 
 ```env
-GOOGLE_MAPS_API_KEY=your_api_key_here
+MAPBOX_ACCESS_TOKEN=your_mapbox_access_token
 ```
+
+**Note**: Get your free Mapbox access token at https://account.mapbox.com/
 
 All other environment variables were already configured.
 

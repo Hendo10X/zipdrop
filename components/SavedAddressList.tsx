@@ -84,8 +84,8 @@ export function SavedAddressList() {
 
   if (addresses.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 py-12">
-        <div className="rounded-full bg-gray-100 p-4">
+      <div className="flex flex-col items-center justify-center rounded border-2 border-dashed border-gray-300 py-12">
+        <div className="rounded bg-gray-100 p-4">
           <MapPin className="text-gray-400" size={40} />
         </div>
         <h3 className="mt-4 text-lg font-semibold text-gray-900">

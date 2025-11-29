@@ -53,10 +53,12 @@ Zipdrop is a comprehensive, smart address utility designed to eliminate the comm
     DATABASE_URL=your_neon_database_url
     BETTER_AUTH_SECRET=your_better_auth_secret
     BETTER_AUTH_URL=http://localhost:3000 # or your production URL
-    GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+    MAPBOX_ACCESS_TOKEN=your_mapbox_access_token
     ```
 
     See [SETUP.md](SETUP.md) for detailed instructions on obtaining these credentials.
+
+    **Note**: Mapbox offers 100,000 free geocoding requests per month with no credit card required.
 
 4.  Run database migrations (if applicable):
     ```bash
@@ -114,10 +116,11 @@ zipdrop/
 ## Key Features Implementation
 
 ### Address Verification
-- Uses Google Geocoding API for validation
+- Uses Mapbox Geocoding API for validation
 - Returns validated postal code and formatted address
 - Displays country-specific postal formatting rules
 - Supports 7+ countries (US, CA, GB, AU, DE, FR, JP)
+- 100,000 free requests per month
 
 ### Geolocation
 - Browser-based location detection

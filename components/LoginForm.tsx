@@ -62,7 +62,7 @@ export function LoginForm() {
             {...form.register("email")}
             type="email"
             placeholder="Email@example.com"
-            className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-[32px] text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
+            className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-4xl text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
           />
           {form.formState.errors.email && (
             <p className="text-red-500 text-xs ml-4 mt-1">{form.formState.errors.email.message}</p>
@@ -78,7 +78,7 @@ export function LoginForm() {
             {...form.register("password")}
             type="password"
             placeholder="Password"
-            className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-[32px] text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
+            className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-4xl text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
           />
            {form.formState.errors.password && (
             <p className="text-red-500 text-xs ml-4 mt-1">{form.formState.errors.password.message}</p>

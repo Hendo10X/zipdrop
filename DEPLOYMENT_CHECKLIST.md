@@ -10,15 +10,14 @@ Use this checklist before deploying Zipdrop to production.
 - [ ] Add `DATABASE_URL` (Neon PostgreSQL connection string)
 - [ ] Add `BETTER_AUTH_SECRET` (generate with `openssl rand -hex 32`)
 - [ ] Add `BETTER_AUTH_URL` (http://localhost:3000 for dev)
-- [ ] Add `GOOGLE_MAPS_API_KEY` (from Google Cloud Console)
+- [ ] Add `MAPBOX_ACCESS_TOKEN` (from Mapbox account)
 
-### 2. Google Maps API Setup
-- [ ] Create Google Cloud Project
-- [ ] Enable Geocoding API
-- [ ] Create API key
-- [ ] Set up billing (required for Geocoding API)
-- [ ] Configure API key restrictions (optional but recommended)
-- [ ] Test API key with a simple request
+### 2. Mapbox API Setup
+- [ ] Create free Mapbox account at https://account.mapbox.com/
+- [ ] Navigate to Access Tokens page
+- [ ] Copy default public token or create a new one
+- [ ] Paste into `MAPBOX_ACCESS_TOKEN` in `.env.local`
+- [ ] Test token by running the app and verifying an address
 
 ### 3. Database Setup
 - [ ] Create Neon database
@@ -58,7 +57,7 @@ Use this checklist before deploying Zipdrop to production.
 - [ ] Set `DATABASE_URL` on hosting platform
 - [ ] Set `BETTER_AUTH_SECRET` (use a different secret than dev)
 - [ ] Set `BETTER_AUTH_URL` to production domain (e.g., https://zipdrop.com)
-- [ ] Set `GOOGLE_MAPS_API_KEY` (can use same as dev or separate)
+- [ ] Set `MAPBOX_ACCESS_TOKEN` (can use same as dev or create production token)
 
 ### 2. Database (Production)
 - [ ] Create production database (separate from dev)
@@ -88,25 +87,25 @@ Use this checklist before deploying Zipdrop to production.
 
 ### 5. Monitoring & Security
 - [ ] Set up error monitoring (e.g., Sentry)
-- [ ] Monitor Google Maps API usage
-- [ ] Set up API usage alerts
-- [ ] Review API key restrictions
+- [ ] Monitor Mapbox API usage (100,000 free requests/month)
+- [ ] Set up API usage alerts (optional)
 - [ ] Enable HTTPS (should be automatic on Vercel/Netlify)
 - [ ] Test SSL certificate
 
 ## Common Issues & Solutions
 
-### Issue: "GOOGLE_MAPS_API_KEY is not configured"
+### Issue: "MAPBOX_ACCESS_TOKEN is not configured"
 - **Solution**: Ensure the environment variable is set correctly
 - Check spelling and make sure there are no extra spaces
 - Restart the development server after adding env vars
 
 ### Issue: "Failed to verify address"
 - **Solution**:
-  - Check if Geocoding API is enabled in Google Cloud Console
-  - Verify API key is correct
-  - Check if billing is enabled (required for Geocoding API)
-  - Check API request quotas
+  - Verify your Mapbox access token is correct
+  - Check if you've exceeded the free tier limit (100,000 requests/month)
+  - Ensure your token has the appropriate scopes
+  - Test the token at https://account.mapbox.com/access-tokens/
+  - Check for typos in the address input
 
 ### Issue: "Unauthorized" errors in dashboard
 - **Solution**:

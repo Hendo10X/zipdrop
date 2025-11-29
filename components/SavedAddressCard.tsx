@@ -69,10 +69,10 @@ export function SavedAddressCard({
   };
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md">
+    <div className="rounded border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-gray-300">
       <div className="mb-3 flex items-start justify-between">
         <div className="flex items-start gap-3">
-          <div className="rounded-lg bg-[#61EB76]/10 p-2">
+          <div className="rounded-full bg-[#61EB76]/10 p-2">
             <MapPin className="text-[#40800C]" size={20} />
           </div>
           <div className="flex-1">
@@ -88,7 +88,7 @@ export function SavedAddressCard({
                 />
                 <button
                   onClick={handleUpdate}
-                  className="rounded bg-[#40800C] px-3 py-1 text-sm text-white hover:bg-[#40800C]/90"
+                  className="rounded-full bg-[#61EB76] px-3 py-1 text-sm text-[#40800C] hover:bg-[#61EB76]/90"
                 >
                   Save
                 </button>
@@ -97,7 +97,7 @@ export function SavedAddressCard({
                     setIsEditing(false);
                     setLabel(address.label || "");
                   }}
-                  className="rounded border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
+                  className="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
                 >
                   Cancel
                 </button>

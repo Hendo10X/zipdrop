@@ -49,10 +49,10 @@ export function AddressVerificationResult({
   };
 
   return (
-    <div className="w-full rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+    <div className="w-full rounded border border-gray-200 bg-white p-6">
       <div className="mb-4 flex items-start justify-between">
         <div className="flex items-start gap-3">
-          <div className="rounded-lg bg-[#61EB76]/10 p-2">
+          <div className="rounded-full bg-[#61EB76]/10 p-2">
             <MapPin className="text-[#40800C]" size={24} />
           </div>
           <div>
@@ -104,7 +104,7 @@ export function AddressVerificationResult({
           )}
         </div>
 
-        <div className="rounded-lg bg-gray-50 p-3">
+        <div className="rounded bg-gray-50 p-3">
           <p className="text-xs font-medium text-gray-500">
             Formatted Address
           </p>
@@ -112,7 +112,7 @@ export function AddressVerificationResult({
         </div>
 
         {address.latitude && address.longitude && (
-          <div className="rounded-lg bg-gray-50 p-3">
+          <div className="rounded bg-gray-50 p-3">
             <p className="text-xs font-medium text-gray-500">Coordinates</p>
             <p className="text-sm text-gray-900">
               {address.latitude}, {address.longitude}
@@ -126,7 +126,7 @@ export function AddressVerificationResult({
       <div className="mt-6 flex gap-3">
         <button
           onClick={handleCopy}
-          className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-gray-300 bg-white px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50"
+          className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-gray-300 bg-white px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50"
         >
           {isCopied ? <Check size={20} /> : <Copy size={20} />}
           {isCopied ? "Copied!" : "Copy Address"}
@@ -135,7 +135,7 @@ export function AddressVerificationResult({
         {showSaveButton && onSave && (
           <button
             onClick={() => setShowLabelInput(!showLabelInput)}
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#40800C] px-4 py-3 font-semibold text-white transition-all duration-200 hover:bg-[#40800C]/90"
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#61EB76] px-4 py-3 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90"
           >
             <Save size={20} />
             Save to Address Book
@@ -150,12 +150,12 @@ export function AddressVerificationResult({
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             placeholder="Label (optional, e.g., Home, Work)"
-            className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-[#40800C] focus:outline-none focus:ring-2 focus:ring-[#40800C]/20"
+            className="flex-1 rounded border border-gray-300 px-4 py-2 text-sm focus:border-[#40800C] focus:outline-none focus:ring-2 focus:ring-[#40800C]/20"
           />
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="rounded-lg bg-[#40800C] px-6 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#40800C]/90 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full bg-[#61EB76] px-6 py-2 text-sm font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSaving ? "Saving..." : "Save"}
           </button>

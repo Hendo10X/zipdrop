@@ -67,7 +67,7 @@ export function PostalFormatDisplay({ countryCode }: PostalFormatDisplayProps) {
   }
 
   return (
-    <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
+    <div className="mt-4 rounded border border-blue-200 bg-blue-50 p-4">
       <div className="mb-2 flex items-center gap-2">
         <FileText className="text-blue-600" size={20} />
         <h4 className="font-semibold text-blue-900">

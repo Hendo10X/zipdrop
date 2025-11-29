@@ -89,7 +89,7 @@ export default function ActivityPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-[#F3F3F3]">
+      <div className="flex min-h-[50vh] flex-col items-center justify-center">
         <Loader2 className="animate-spin text-[#40800C]" size={40} />
         <p className="mt-4 text-gray-500">Loading activity...</p>
       </div>
@@ -97,7 +97,7 @@ export default function ActivityPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F3F3F3] px-6 py-8">
+    <div className=" px-6 py-8">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Activity Log</h1>
@@ -107,8 +107,8 @@ export default function ActivityPage() {
         </div>
 
         {activities.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-white py-12">
-            <div className="rounded-full bg-gray-100 p-4">
+          <div className="flex flex-col items-center justify-center rounded border-2 border-dashed border-gray-300 bg-white py-12">
+            <div className="rounded bg-gray-100 p-4">
               <Clock className="text-gray-400" size={40} />
             </div>
             <h3 className="mt-4 text-lg font-semibold text-gray-900">
@@ -123,10 +123,10 @@ export default function ActivityPage() {
             {activities.map((activity) => (
               <div
                 key={activity.id}
-                className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md"
+                className="rounded border border-gray-200 bg-white p-4  transition-all duration-200 hover:shadow-md"
               >
                 <div className="flex items-start gap-4">
-                  <div className="rounded-lg bg-[#61EB76]/10 p-2">
+                  <div className="rounded-full bg-[#61EB76]/10 p-2">
                     {getActionIcon(activity.action)}
                   </div>
 
@@ -134,7 +134,7 @@ export default function ActivityPage() {
                     <div className="mb-2 flex items-start justify-between">
                       <div>
                         <span
-                          className={`inline-block rounded-full px-2 py-1 text-xs font-semibold ${getActionColor(
+                          className={`inline-block rounded px-2 py-1 text-xs font-semibold ${getActionColor(
                             activity.action
                           )}`}
                         >

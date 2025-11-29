@@ -6,24 +6,36 @@ const geolocationSchema = z.object({
   longitude: z.number(),
 });
 
-interface GoogleReverseGeocodeResponse {
-  results: Array<{
-    address_components: Array<{
-      long_name: string;
-      short_name: string;
-      types: string[];
-    }>;
-    formatted_address: string;
-    geometry: {
-      location: {
-        lat: number;
-        lng: number;
-      };
-    };
-    place_id: string;
-    types: string[];
-  }>;
-  status: string;
+interface MapboxContext {
+  id: string;
+  text: string;
+  short_code?: string;
+}
+
+interface MapboxFeature {
+  id: string;
+  type: string;
+  place_type: string[];
+  relevance: number;
+  properties: {
+    accuracy?: string;
+  };
+  text: string;
+  place_name: string;
+  center: [number, number];
+  geometry: {
+    type: string;
+    coordinates: [number, number];
+  };
+  address?: string;
+  context?: MapboxContext[];
+}
+
+interface MapboxResponse {
+  type: string;
+  query: [number, number];
+  features: MapboxFeature[];
+  attribution: string;
 }
 
 export async function POST(request: NextRequest) {
@@ -31,66 +43,65 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { latitude, longitude } = geolocationSchema.parse(body);
 
-    const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+    const apiKey = process.env.MAPBOX_ACCESS_TOKEN;
 
     if (!apiKey) {
       return NextResponse.json(
         {
           error:
-            "Google Maps API key is not configured. Please add GOOGLE_MAPS_API_KEY to your environment variables.",
+            "Mapbox access token is not configured. Please add MAPBOX_ACCESS_TOKEN to your environment variables.",
         },
         { status: 500 }
       );
     }
 
-    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+    const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${apiKey}&limit=1`;
 
     const response = await fetch(geocodeUrl);
-    const data: GoogleReverseGeocodeResponse = await response.json();
+    const data: MapboxResponse = await response.json();
 
-    if (data.status === "ZERO_RESULTS") {
+    if (!data.features || data.features.length === 0) {
       return NextResponse.json(
         { error: "No address found for the provided coordinates" },
         { status: 404 }
       );
     }
 
-    if (data.status !== "OK") {
-      return NextResponse.json(
-        { error: `Reverse geocoding failed: ${data.status}` },
-        { status: 400 }
-      );
-    }
+    const result = data.features[0];
 
-    const result = data.results[0];
-
-    const getComponent = (types: string[]) => {
-      return result.address_components.find((component) =>
-        types.some((type) => component.types.includes(type))
-      );
+    const getContext = (type: string) => {
+      return result.context?.find((ctx) => ctx.id.startsWith(type));
     };
 
-    const street = [
-      getComponent(["street_number"])?.long_name,
-      getComponent(["route"])?.long_name,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const street = result.address
+      ? `${result.address} ${result.text}`
+      : result.text;
+
+    const city =
+      getContext("place")?.text ||
+      getContext("locality")?.text ||
+      getContext("district")?.text ||
+      "";
+
+    const state = getContext("region")?.text || "";
+    const stateCode = getContext("region")?.short_code?.replace("US-", "") || "";
+
+    const postalCode = getContext("postcode")?.text || "";
+    const country = getContext("country")?.text || "";
+    const countryCode =
+      getContext("country")?.short_code?.toUpperCase() || "";
 
     const address = {
       street: street || "",
-      city:
-        getComponent(["locality", "sublocality"])?.long_name ||
-        getComponent(["administrative_area_level_2"])?.long_name ||
-        "",
-      state: getComponent(["administrative_area_level_1"])?.short_name || "",
-      postalCode: getComponent(["postal_code"])?.long_name || "",
-      country: getComponent(["country"])?.long_name || "",
-      countryCode: getComponent(["country"])?.short_name || "",
-      formattedAddress: result.formatted_address,
+      city: city,
+      state: stateCode || state,
+      postalCode: postalCode,
+      country: country,
+      countryCode: countryCode,
+      formattedAddress: result.place_name,
       latitude: latitude.toString(),
       longitude: longitude.toString(),
-      placeId: result.place_id,
+      placeId: result.id,
     };
 
     return NextResponse.json({ address });

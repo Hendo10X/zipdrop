@@ -59,9 +59,44 @@ export const verification = pgTable("verification", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+export const savedAddress = pgTable("saved_address", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  label: text("label"),
+  street: text("street").notNull(),
+  city: text("city").notNull(),
+  state: text("state"),
+  postalCode: text("postal_code").notNull(),
+  country: text("country").notNull(),
+  formattedAddress: text("formatted_address").notNull(),
+  latitude: text("latitude"),
+  longitude: text("longitude"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
+
+export const activityLog = pgTable("activity_log", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  action: text("action").notNull(),
+  details: text("details"),
+  metadata: text("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const schema = {
   account,
   session,
   user,
   verification,
+  savedAddress,
+  activityLog,
 }

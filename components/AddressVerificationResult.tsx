@@ -67,6 +67,16 @@ export function AddressVerificationResult({
       </div>
 
       <div className="space-y-3 border-t border-gray-100 pt-4">
+        {/* Postal Code - Priority Display */}
+        <div className="rounded-lg border-2 border-[#61EB76] bg-[#61EB76]/5 p-4">
+          <p className="text-xs font-medium text-[#40800C]">Postal Code</p>
+          {address.postalCode ? (
+            <p className="text-lg font-bold text-gray-900">{address.postalCode}</p>
+          ) : (
+            <p className="text-sm italic text-gray-500">No postal code available for this location</p>
+          )}
+        </div>
+
         <div className="grid grid-cols-2 gap-4">
           {address.street && (
             <div className="col-span-2">
@@ -89,15 +99,8 @@ export function AddressVerificationResult({
             </div>
           )}
 
-          {address.postalCode && (
-            <div>
-              <p className="text-xs font-medium text-gray-500">Postal Code</p>
-              <p className="text-sm text-gray-900">{address.postalCode}</p>
-            </div>
-          )}
-
           {address.country && (
-            <div>
+            <div className="col-span-2">
               <p className="text-xs font-medium text-gray-500">Country</p>
               <p className="text-sm text-gray-900">{address.country}</p>
             </div>

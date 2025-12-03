@@ -5,7 +5,7 @@ import DashboardMenu from "@/components/DashboardMenu";
 
 export default function VerifyPage() {
   return (
-    <div className="min-h-screen bg-[#F3F3F3] font-sans text-hendogray dm-sans">
+    <div className="min-h-screen bg-[#F3F3F3] font-sans text-hendogray dm-sans ">
       <header className="fixed right-0 top-0 z-50 p-6 sm:p-10">
         <DashboardMenu />
       </header>

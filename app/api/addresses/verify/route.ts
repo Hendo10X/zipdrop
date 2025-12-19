@@ -85,12 +85,12 @@ export async function POST(request: NextRequest) {
       "";
 
     const state = getContext("region")?.text || "";
-    const stateCode = getContext("region")?.short_code?.replace("US-", "") || "";
+    const stateCode =
+      getContext("region")?.short_code?.replace("US-", "") || "";
 
     const postalCode = getContext("postcode")?.text || "";
     const country = getContext("country")?.text || "";
-    const countryCode =
-      getContext("country")?.short_code?.toUpperCase() || "";
+    const countryCode = getContext("country")?.short_code?.toUpperCase() || "";
 
     const verifiedAddress = {
       street: street || "",
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors[0].message },
+        { error: error.issues?.[0]?.message ?? "Invalid input" },
         { status: 400 }
       );
     }

@@ -71,13 +71,17 @@ export function AddressVerificationResult({
         <div className="rounded-lg border-2 border-[#61EB76] bg-[#61EB76]/5 p-4">
           <p className="text-xs font-medium text-[#40800C]">Postal Code</p>
           {address.postalCode ? (
-            <p className="text-lg font-bold text-gray-900">{address.postalCode}</p>
+            <p className="text-lg font-bold text-gray-900">
+              {address.postalCode}
+            </p>
           ) : (
-            <p className="text-sm italic text-gray-500">No postal code available for this location</p>
+            <p className="text-sm italic text-gray-500">
+              No postal code available for this location
+            </p>
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {address.street && (
             <div className="col-span-2">
               <p className="text-xs font-medium text-gray-500">Street</p>
@@ -108,9 +112,7 @@ export function AddressVerificationResult({
         </div>
 
         <div className="rounded bg-gray-50 p-3">
-          <p className="text-xs font-medium text-gray-500">
-            Formatted Address
-          </p>
+          <p className="text-xs font-medium text-gray-500">Formatted Address</p>
           <p className="text-sm text-gray-900">{address.formattedAddress}</p>
         </div>
 
@@ -129,8 +131,7 @@ export function AddressVerificationResult({
       <div className="mt-6 flex gap-3">
         <button
           onClick={handleCopy}
-          className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-gray-300 bg-white px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50"
-        >
+          className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-gray-300 bg-white px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50">
           {isCopied ? <Check size={20} /> : <Copy size={20} />}
           {isCopied ? "Copied!" : "Copy Address"}
         </button>
@@ -138,8 +139,7 @@ export function AddressVerificationResult({
         {showSaveButton && onSave && (
           <button
             onClick={() => setShowLabelInput(!showLabelInput)}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#61EB76] px-4 py-3 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90"
-          >
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#61EB76] px-4 py-3 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90">
             <Save size={20} />
             Save to Address Book
           </button>
@@ -158,8 +158,7 @@ export function AddressVerificationResult({
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="rounded-full bg-[#61EB76] px-6 py-2 text-sm font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90 disabled:cursor-not-allowed disabled:opacity-50"
-          >
+            className="rounded-full bg-[#61EB76] px-6 py-2 text-sm font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90 disabled:cursor-not-allowed disabled:opacity-50">
             {isSaving ? "Saving..." : "Save"}
           </button>
         </div>

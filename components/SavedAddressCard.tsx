@@ -69,7 +69,7 @@ export function SavedAddressCard({
   };
 
   return (
-    <div className="rounded border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-gray-300">
+    <div className="rounded border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-gray-300 wrap-break-word">
       <div className="mb-3 flex items-start justify-between">
         <div className="flex items-start gap-3">
           <div className="rounded-full bg-[#61EB76]/10 p-2">
@@ -88,8 +88,7 @@ export function SavedAddressCard({
                 />
                 <button
                   onClick={handleUpdate}
-                  className="rounded-full bg-[#61EB76] px-3 py-1 text-sm text-[#40800C] hover:bg-[#61EB76]/90"
-                >
+                  className="rounded-full bg-[#61EB76] px-3 py-1 text-sm text-[#40800C] hover:bg-[#61EB76]/90">
                   Save
                 </button>
                 <button
@@ -97,8 +96,7 @@ export function SavedAddressCard({
                     setIsEditing(false);
                     setLabel(address.label || "");
                   }}
-                  className="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"
-                >
+                  className="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50">
                   Cancel
                 </button>
               </div>
@@ -118,15 +116,13 @@ export function SavedAddressCard({
             <button
               onClick={() => setIsEditing(true)}
               className="rounded p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
-              title="Edit label"
-            >
+              title="Edit label">
               <Edit2 size={16} />
             </button>
             <button
               onClick={handleCopy}
               className="rounded p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
-              title="Copy address"
-            >
+              title="Copy address">
               {isCopied ? (
                 <Check size={16} className="text-green-600" />
               ) : (
@@ -137,15 +133,14 @@ export function SavedAddressCard({
               onClick={handleDelete}
               disabled={isDeleting}
               className="rounded p-1 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
-              title="Delete address"
-            >
+              title="Delete address">
               <Trash2 size={16} />
             </button>
           </div>
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-2 border-t border-gray-100 pt-3 text-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 border-t border-gray-100 pt-3 text-xs">
         {address.city && (
           <div>
             <span className="font-medium text-gray-500">City: </span>

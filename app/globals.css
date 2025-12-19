@@ -41,7 +41,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-hendogray: #5B5B5B;
+  --color-hendogray: #5b5b5b;
 }
 
 :root {
@@ -124,4 +124,19 @@
 
 @font-face {
   font-family: var(--font-dm-sans);
-  }
+}
+
+/* Prevent media from overflowing small screens */
+img,
+iframe,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent horizontal overflow across the app */
+html,
+body {
+  overflow-x: hidden;
+}

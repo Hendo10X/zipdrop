@@ -98,8 +98,7 @@ export function AddressSearchForm({
           <button
             type="submit"
             disabled={isVerifying}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#61EB76] px-6 py-4 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90 disabled:cursor-not-allowed disabled:opacity-50"
-          >
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#61EB76] px-4 sm:px-6 py-3 sm:py-4 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90 disabled:cursor-not-allowed disabled:opacity-50">
             <Search size={20} />
             {isVerifying ? "Verifying..." : "Verify Address"}
           </button>
@@ -108,8 +107,7 @@ export function AddressSearchForm({
             <button
               type="button"
               onClick={onGeolocationClick}
-              className="flex items-center justify-center gap-2 rounded-full border-2 border-[#40800C] bg-white px-6 py-4 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/5"
-            >
+              className="flex items-center justify-center gap-2 rounded-full border-2 border-[#40800C] bg-white px-4 sm:px-6 py-3 sm:py-4 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/5">
               <MapPin size={20} />
               Use My Location
             </button>

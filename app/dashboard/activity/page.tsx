@@ -47,9 +47,12 @@ export default function ActivityPage() {
     const diffInDays = Math.floor(diffInMs / 86400000);
 
     if (diffInMins < 1) return "Just now";
-    if (diffInMins < 60) return `${diffInMins} minute${diffInMins > 1 ? "s" : ""} ago`;
-    if (diffInHours < 24) return `${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
-    if (diffInDays < 7) return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+    if (diffInMins < 60)
+      return `${diffInMins} minute${diffInMins > 1 ? "s" : ""} ago`;
+    if (diffInHours < 24)
+      return `${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
+    if (diffInDays < 7)
+      return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
 
     return date.toLocaleDateString("en-US", {
       month: "short",
@@ -97,8 +100,8 @@ export default function ActivityPage() {
   }
 
   return (
-    <div className=" px-6 py-8">
-      <div className="mx-auto max-w-4xl">
+    <div className="min-h-screen bg-[#F3F3F3] px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div className="mx-auto w-full max-w-3xl sm:max-w-4xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Activity Log</h1>
           <p className="mt-2 text-gray-600">
@@ -123,8 +126,7 @@ export default function ActivityPage() {
             {activities.map((activity) => (
               <div
                 key={activity.id}
-                className="rounded border border-gray-200 bg-white p-4  transition-all duration-200 hover:shadow-md"
-              >
+                className="rounded border border-gray-200 bg-white p-4  transition-all duration-200 hover:shadow-md">
                 <div className="flex items-start gap-4">
                   <div className="rounded-full bg-[#61EB76]/10 p-2">
                     {getActionIcon(activity.action)}
@@ -136,8 +138,7 @@ export default function ActivityPage() {
                         <span
                           className={`inline-block rounded px-2 py-1 text-xs font-semibold ${getActionColor(
                             activity.action
-                          )}`}
-                        >
+                          )}`}>
                           {activity.action.replace(/_/g, " ").toUpperCase()}
                         </span>
                       </div>
@@ -147,7 +148,9 @@ export default function ActivityPage() {
                     </div>
 
                     {activity.details && (
-                      <p className="text-sm text-gray-700">{activity.details}</p>
+                      <p className="text-sm text-gray-700">
+                        {activity.details}
+                      </p>
                     )}
                   </div>
                 </div>

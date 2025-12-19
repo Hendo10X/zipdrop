@@ -44,8 +44,8 @@ export default function DashboardMenu() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`${
-          isOpen 
-            ? "bg-[#61EB76] text-[#40800C] hover:bg-[#40800C] hover:text-[#61EB76]" 
+          isOpen
+            ? "bg-[#61EB76] text-[#40800C] hover:bg-[#61EB76]/90"
             : "bg-[#E5E5E5] hover:bg-[#d4d4d4] text-hendogray"
         } px-4 py-1.5 sm:px-6 sm:py-2 rounded-full text-sm font-medium transition-colors dm-sans z-50 relative w-[80px] h-[36px] flex items-center justify-center overflow-hidden`}
       >
@@ -70,7 +70,7 @@ export default function DashboardMenu() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute top-full right-0 mt-2 w-48 bg-[#EDEDED] rounded-xl overflow-hidden z-40"
+            className="absolute top-full right-0 mt-2 w-48 bg-[#EDEDED] rounded overflow-hidden z-40"
           >
             <div className="flex flex-col p-2">
               <nav className="flex flex-col gap-1">
@@ -78,13 +78,12 @@ export default function DashboardMenu() {
                   { label: "Overview", href: "/dashboard" },
                   { label: "Saved", href: "/dashboard/saved" },
                   { label: "Activity", href: "/dashboard/activity"},
-                  { label: "Profile", href: "/dashboard/profile" },
                   { label: "Settings", href: "/dashboard/settings" },
                 ].map((item) => (
                   <motion.div key={item.label} variants={itemVariants}>
                     <Link
                       href={item.href}
-                      className="block px-4 py-2 text-center text-hendogray hover:bg-black/5 rounded-lg transition-colors text-sm font-medium dm-sans"
+                      className="block px-4 py-2 text-center text-hendogray hover:bg-black/5 rounded transition-colors text-sm font-medium dm-sans"
                       onClick={() => setIsOpen(false)}
                     >
                       {item.label}

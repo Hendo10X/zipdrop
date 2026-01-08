@@ -72,8 +72,8 @@ export default function Menu() {
               <nav className="flex flex-col gap-1">
                 {[
                   { label: "Home", href: "/" },
+                  { label: "Docs", href: "/docs" },
                   { label: "About", href: "/navigation/about" },
-                  { label: "Blog", href: "#" },
                   { label: "FAQ", href: "/navigation/faq" },
                   { label: "Login", href: "/login" },
                 ].map((item) => (

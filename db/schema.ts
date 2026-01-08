@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -107,6 +107,24 @@ export const userPreferences = pgTable("user_preferences", {
     .notNull(),
 });
 
+export const apiKey = pgTable("api_key", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  key: text("key").notNull().unique(),
+  keyPrefix: text("key_prefix").notNull(), // First 8 chars for display
+  requestCount: integer("request_count").default(0).notNull(),
+  lastUsedAt: timestamp("last_used_at"),
+  expiresAt: timestamp("expires_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
 export const schema = {
   account,
   session,
@@ -115,4 +133,5 @@ export const schema = {
   savedAddress,
   activityLog,
   userPreferences,
+  apiKey,
 }

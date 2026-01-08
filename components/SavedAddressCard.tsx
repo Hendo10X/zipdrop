@@ -112,58 +112,54 @@ export function SavedAddressCard({
         </div>
 
         {!isEditing && (
-          <div className="flex gap-2">
+          <div className="flex shrink-0 items-center gap-1">
             <button
               onClick={() => setIsEditing(true)}
-              className="rounded p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
               title="Edit label">
-              <Edit2 size={16} />
+              <Edit2 size={18} />
             </button>
             <button
               onClick={handleCopy}
-              className="rounded p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
               title="Copy address">
               {isCopied ? (
-                <Check size={16} className="text-green-600" />
+                <Check size={18} className="text-[#40800C]" />
               ) : (
-                <Copy size={16} />
+                <Copy size={18} />
               )}
             </button>
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="rounded p-1 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
               title="Delete address">
-              <Trash2 size={16} />
+              <Trash2 size={18} />
             </button>
           </div>
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 border-t border-gray-100 pt-3 text-xs">
+      <div className="flex flex-wrap gap-2 border-t border-gray-100 pt-3">
         {address.city && (
-          <div>
-            <span className="font-medium text-gray-500">City: </span>
-            <span className="text-gray-700">{address.city}</span>
-          </div>
+          <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+            {address.city}
+          </span>
         )}
         {address.state && (
-          <div>
-            <span className="font-medium text-gray-500">State: </span>
-            <span className="text-gray-700">{address.state}</span>
-          </div>
+          <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+            {address.state}
+          </span>
         )}
         {address.postalCode && (
-          <div>
-            <span className="font-medium text-gray-500">Postal Code: </span>
-            <span className="text-gray-700">{address.postalCode}</span>
-          </div>
+          <span className="inline-flex items-center rounded-full bg-[#61EB76]/15 px-3 py-1 text-xs font-semibold text-[#40800C]">
+            {address.postalCode}
+          </span>
         )}
         {address.country && (
-          <div>
-            <span className="font-medium text-gray-500">Country: </span>
-            <span className="text-gray-700">{address.country}</span>
-          </div>
+          <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+            {address.country}
+          </span>
         )}
       </div>
     </div>

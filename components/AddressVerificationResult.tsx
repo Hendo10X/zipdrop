@@ -128,7 +128,7 @@ export function AddressVerificationResult({
 
       <PostalFormatDisplay countryCode={address.countryCode} />
 
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex flex-col sm:flex-row gap-3">
         <button
           onClick={handleCopy}
           className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-gray-300 bg-white px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50">
@@ -147,7 +147,7 @@ export function AddressVerificationResult({
       </div>
 
       {showLabelInput && (
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4 flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             value={label}

@@ -94,8 +94,8 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="px-6 py-8">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen bg-[#F3F3F3] px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div className="mx-auto w-full max-w-4xl sm:max-w-7xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
             Welcome back, {user?.name || "User"}
@@ -105,7 +105,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <div className="rounded border border-gray-200 bg-white p-6 ">
             <div className="flex items-center justify-between">
               <div>

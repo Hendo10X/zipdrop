@@ -67,7 +67,7 @@ export default function Menu() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute top-full right-0 mt-2 w-48 bg-[#EDEDED] rounded-md overflow-hidden z-40">
+            className="absolute top-full right-0 mt-2 w-48 max-w-[90vw] bg-[#EDEDED] rounded-md overflow-hidden z-40">
             <div className="flex flex-col p-2">
               <nav className="flex flex-col gap-1">
                 {[

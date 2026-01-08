@@ -18,7 +18,7 @@ const formSchema = z.object({
 export function LoginForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,23 +30,26 @@ export function LoginForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      await authClient.signIn.email({
-        email: values.email,
-        password: values.password,
-      }, {
-        onSuccess: () => {
+      await authClient.signIn.email(
+        {
+          email: values.email,
+          password: values.password,
+        },
+        {
+          onSuccess: () => {
             toast.success("Login successful");
             router.push("/dashboard");
-        },
-        onError: (ctx) => {
+          },
+          onError: (ctx) => {
             toast.error(ctx.error.message || "Failed to login");
+          },
         }
-      });
+      );
     } catch (error) {
       const err = error as Error;
       toast.error(err.message || "Failed to login");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   }
 
@@ -65,7 +68,9 @@ export function LoginForm() {
             className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-4xl text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
           />
           {form.formState.errors.email && (
-            <p className="text-red-500 text-xs ml-4 mt-1">{form.formState.errors.email.message}</p>
+            <p className="text-red-500 text-xs ml-4 mt-1">
+              {form.formState.errors.email.message}
+            </p>
           )}
         </div>
 
@@ -80,34 +85,37 @@ export function LoginForm() {
             placeholder="Password"
             className="w-full bg-[#E5E5E5] text-hendogray placeholder:text-gray-500 px-12 py-3.5 rounded-4xl text-sm focus:outline-none focus:ring-2 focus:ring-[#61EB76] focus:bg-[#E5E5E5]/80 transition-all duration-300 ease-out"
           />
-           {form.formState.errors.password && (
-            <p className="text-red-500 text-xs ml-4 mt-1">{form.formState.errors.password.message}</p>
+          {form.formState.errors.password && (
+            <p className="text-red-500 text-xs ml-4 mt-1">
+              {form.formState.errors.password.message}
+            </p>
           )}
         </div>
       </div>
 
       {/* Forgot Password */}
       <div className="w-full text-right text-sm text-hendogray/60">
-        Forgot your password? <span className="underline decoration-hendogray/40 cursor-pointer">Well that sucks.</span>
+        Forgot your password?{" "}
+        <span className="underline decoration-hendogray/40 cursor-pointer">
+          Well that sucks.
+        </span>
       </div>
 
       {/* Login Button */}
       <motion.button
         type="submit"
         disabled={loading}
-        className="bg-[#61EB76] text-[#40800C] px-8 py-3 rounded-full text-base font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full mt-4"
+        className="bg-[#61EB76] text-[#40800C] px-6 sm:px-8 py-3 rounded-full text-base font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full mt-4"
         initial="initial"
         whileHover="hover"
-        whileTap={{ scale: 0.98 }}
-      >
+        whileTap={{ scale: 0.98 }}>
         <motion.div
           className="flex items-center gap-2"
           variants={{
             initial: { y: 0, opacity: 1 },
-            hover: { y: -20, opacity: 0 }
+            hover: { y: -20, opacity: 0 },
           }}
-          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-        >
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}>
           {loading ? <Loader2 className="animate-spin" /> : "Log in"}
         </motion.div>
 
@@ -115,11 +123,10 @@ export function LoginForm() {
           className="flex items-center gap-2 absolute inset-0 justify-center"
           variants={{
             initial: { y: 20, opacity: 0 },
-            hover: { y: 0, opacity: 1 }
+            hover: { y: 0, opacity: 1 },
           }}
-          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-        >
-           {loading ? <Loader2 className="animate-spin" /> : "Log in"}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}>
+          {loading ? <Loader2 className="animate-spin" /> : "Log in"}
         </motion.div>
       </motion.button>
     </form>

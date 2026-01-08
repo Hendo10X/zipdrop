@@ -1,12 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import DashboardMenu from "@/components/DashboardMenu";
+import { auth } from "@/lib/auth";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <div className="min-h-screen bg-[#F3F3F3] flex flex-col font-sans text-hendogray dm-sans">
       {/* Header */}

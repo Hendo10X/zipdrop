@@ -75,6 +75,7 @@ export default function DashboardMenu() {
                   { label: "Overview", href: "/dashboard" },
                   { label: "Saved", href: "/dashboard/saved" },
                   { label: "Activity", href: "/dashboard/activity" },
+                  { label: "API Keys", href: "/dashboard/api-keys" },
                   { label: "Settings", href: "/dashboard/settings" },
                 ].map((item) => (
                   <motion.div key={item.label} variants={itemVariants}>

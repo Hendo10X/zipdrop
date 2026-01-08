@@ -92,6 +92,21 @@ export const activityLog = pgTable("activity_log", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const userPreferences = pgTable("user_preferences", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .unique()
+    .references(() => user.id, { onDelete: "cascade" }),
+  emailNotifications: boolean("email_notifications").default(true).notNull(),
+  defaultCountry: text("default_country").default("US").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
 export const schema = {
   account,
   session,
@@ -99,4 +114,5 @@ export const schema = {
   verification,
   savedAddress,
   activityLog,
+  userPreferences,
 }

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { User, Bell, Shield, Globe, LogOut, Trash2 } from "lucide-react";
+import { useEffect, useState, useCallback } from "react";
+import { User, Bell, Shield, Globe, LogOut, Trash2, Check, Loader2 } from "lucide-react";
+import { CountrySelect } from "@/components/CountrySelect";
 import { getUserClient as getUser } from "@/lib/user-client";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
@@ -12,36 +13,81 @@ type UserData = {
   email: string;
 };
 
+type Preferences = {
+  emailNotifications: boolean;
+  defaultCountry: string;
+};
+
 export default function SettingsPage() {
   const [user, setUser] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [defaultCountry, setDefaultCountry] = useState("US");
+  const [preferences, setPreferences] = useState<Preferences>({
+    emailNotifications: true,
+    defaultCountry: "US",
+  });
+  const [savingField, setSavingField] = useState<string | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchData = async () => {
       try {
-        const userData = await getUser();
+        const [userData, prefsResponse] = await Promise.all([
+          getUser(),
+          fetch("/api/user/preferences"),
+        ]);
+
         if (userData) {
           setUser(userData);
         }
+
+        if (prefsResponse.ok) {
+          const prefsData = await prefsResponse.json();
+          setPreferences(prefsData.preferences);
+        }
       } catch (error) {
-        console.error("Failed to fetch user:", error);
+        console.error("Failed to fetch data:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchUser();
+    fetchData();
   }, []);
 
-  const handleSavePreferences = () => {
-    toast.success("Preferences saved successfully");
-  };
+  const updatePreference = useCallback(
+    async (key: keyof Preferences, value: boolean | string) => {
+      setSavingField(key);
+      const previousValue = preferences[key];
+
+      // Optimistically update
+      setPreferences((prev) => ({ ...prev, [key]: value }));
+
+      try {
+        const response = await fetch("/api/user/preferences", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ [key]: value }),
+        });
+
+        if (!response.ok) {
+          // Revert on error
+          setPreferences((prev) => ({ ...prev, [key]: previousValue }));
+          const data = await response.json();
+          toast.error(data.error || "Failed to save preference");
+        }
+      } catch (error) {
+        // Revert on error
+        setPreferences((prev) => ({ ...prev, [key]: previousValue }));
+        toast.error("Failed to save preference");
+      } finally {
+        setSavingField(null);
+      }
+    },
+    [preferences]
+  );
 
   const handleLogout = async () => {
     try {
@@ -84,7 +130,7 @@ export default function SettingsPage() {
   if (isLoading) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
-        <p className="text-gray-500">Loading settings...</p>
+        <Loader2 className="h-8 w-8 animate-spin text-[#40800C]" />
       </div>
     );
   }
@@ -100,7 +146,8 @@ export default function SettingsPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="rounded border border-gray-200 bg-white p-6 ">
+          {/* Account Information */}
+          <div className="rounded border border-gray-200 bg-white p-6">
             <div className="mb-4 flex items-center gap-3">
               <div className="rounded-full bg-[#61EB76]/10 p-2">
                 <User className="text-[#40800C]" size={20} />
@@ -127,8 +174,9 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="rounded border border-gray-200 bg-white p-6 ">
-            <div className="mb-4 flex items-center gap-3">
+          {/* Notifications */}
+          <div className="rounded border border-gray-200 bg-white p-6">
+            <div className="mb-6 flex items-center gap-3">
               <div className="rounded-full bg-[#61EB76]/10 p-2">
                 <Bell className="text-[#40800C]" size={20} />
               </div>
@@ -138,30 +186,57 @@ export default function SettingsPage() {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium text-gray-900">
-                    Email Notifications
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Receive email updates about your saved addresses
-                  </p>
+              {/* Email Notifications Toggle */}
+              <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-4 transition-colors hover:bg-gray-50">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-gray-900">
+                      Email Notifications
+                    </p>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Receive email updates about your saved addresses
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2">
+                    {savingField === "emailNotifications" && (
+                      <Loader2 className="h-4 w-4 animate-spin text-[#40800C]" />
+                    )}
+                    <button
+                      onClick={() =>
+                        updatePreference(
+                          "emailNotifications",
+                          !preferences.emailNotifications
+                        )
+                      }
+                      disabled={savingField === "emailNotifications"}
+                      className={`relative h-7 w-12 shrink-0 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#40800C]/20 focus:ring-offset-2 ${
+                        preferences.emailNotifications
+                          ? "bg-[#61EB76]"
+                          : "bg-gray-300"
+                      }`}
+                      aria-label="Toggle email notifications"
+                    >
+                      <span
+                        className={`absolute left-0.5 top-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                          preferences.emailNotifications
+                            ? "translate-x-5"
+                            : "translate-x-0"
+                        }`}
+                      >
+                        {preferences.emailNotifications && (
+                          <Check className="h-3 w-3 text-[#40800C]" />
+                        )}
+                      </span>
+                    </button>
+                  </div>
                 </div>
-                <label className="relative inline-flex cursor-pointer items-center">
-                  <input
-                    type="checkbox"
-                    checked={emailNotifications}
-                    onChange={(e) => setEmailNotifications(e.target.checked)}
-                    className="peer sr-only"
-                  />
-                  <div className="peer h-6 w-11 rounded bg-gray-200 after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-[#61EB76] peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#40800C]/20"></div>
-                </label>
               </div>
             </div>
           </div>
 
-          <div className="rounded border border-gray-200 bg-white p-6 ">
-            <div className="mb-4 flex items-center gap-3">
+          {/* Preferences */}
+          <div className="rounded border border-gray-200 bg-white p-6">
+            <div className="mb-6 flex items-center gap-3">
               <div className="rounded-full bg-[#61EB76]/10 p-2">
                 <Globe className="text-[#40800C]" size={20} />
               </div>
@@ -171,27 +246,33 @@ export default function SettingsPage() {
             </div>
 
             <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700">
-                  Default Country
-                </label>
-                <select
-                  value={defaultCountry}
-                  onChange={(e) => setDefaultCountry(e.target.value)}
-                  className="mt-1 w-full rounded border border-gray-300 bg-white px-4 py-2 focus:border-[#40800C] focus:outline-none focus:ring-2 focus:ring-[#40800C]/20">
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="GB">United Kingdom</option>
-                  <option value="AU">Australia</option>
-                  <option value="DE">Germany</option>
-                  <option value="FR">France</option>
-                  <option value="JP">Japan</option>
-                </select>
+              <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-4">
+                <div className="flex flex-col gap-3">
+                  <div>
+                    <label className="font-medium text-gray-900">
+                      Default Country
+                    </label>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Set your preferred country for address verification
+                    </p>
+                  </div>
+                  <div className="flex w-full items-center gap-2">
+                    <CountrySelect
+                      value={preferences.defaultCountry}
+                      onChange={(value) => updatePreference("defaultCountry", value)}
+                      disabled={savingField === "defaultCountry"}
+                    />
+                    {savingField === "defaultCountry" && (
+                      <Loader2 className="h-4 w-4 shrink-0 animate-spin text-[#40800C]" />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="rounded border border-gray-200 bg-white p-6 ">
+          {/* Security */}
+          <div className="rounded border border-gray-200 bg-white p-6">
             <div className="mb-4 flex items-center gap-3">
               <div className="rounded-full bg-[#61EB76]/10 p-2">
                 <Shield className="text-[#40800C]" size={20} />
@@ -208,13 +289,15 @@ export default function SettingsPage() {
                   <button
                     onClick={handleLogout}
                     disabled={isLoggingOut}
-                    className="flex items-center justify-center gap-2 rounded-full border-2 border-gray-300 bg-white px-4 py-2 font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50">
+                    className="flex items-center justify-center gap-2 rounded-full border-2 border-gray-300 bg-white px-4 py-2 font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
                     <LogOut size={18} />
                     {isLoggingOut ? "Logging out..." : "Logout"}
                   </button>
                   <button
                     onClick={() => setShowDeleteConfirm(true)}
-                    className="flex items-center justify-center gap-2 rounded-full border-2 border-red-300 bg-white px-4 py-2 font-semibold text-red-600 transition-all duration-200 hover:border-red-400 hover:bg-red-50">
+                    className="flex items-center justify-center gap-2 rounded-full border-2 border-red-300 bg-white px-4 py-2 font-semibold text-red-600 transition-all duration-200 hover:border-red-400 hover:bg-red-50"
+                  >
                     <Trash2 size={18} />
                     Delete Account
                   </button>
@@ -234,7 +317,8 @@ export default function SettingsPage() {
                     <button
                       onClick={handleDeleteAccount}
                       disabled={isDeletingAccount}
-                      className="rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50">
+                      className="rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
                       {isDeletingAccount
                         ? "Deleting..."
                         : "Yes, delete my account"}
@@ -242,7 +326,8 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setShowDeleteConfirm(false)}
                       disabled={isDeletingAccount}
-                      className="rounded-full border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50">
+                      className="rounded-full border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50"
+                    >
                       Cancel
                     </button>
                   </div>
@@ -251,12 +336,10 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="flex justify-end gap-3">
-            <button
-              onClick={handleSavePreferences}
-              className="rounded-full bg-[#61EB76] px-6 py-3 font-semibold text-[#40800C] transition-all duration-200 hover:bg-[#61EB76]/90">
-              Save Preferences
-            </button>
+          {/* Auto-save indicator */}
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+            <Check className="h-4 w-4" />
+            <span>Changes are saved automatically</span>
           </div>
         </div>
       </div>

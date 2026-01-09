@@ -19,23 +19,27 @@ import {
 
 export default function DocsPage() {
   return (
-    <div className="min-h-screen bg-[#F3F3F3] font-sans text-hendogray dm-sans">
-      <header className="flex items-center justify-between p-4 sm:p-10">
-        <Link href="/">
-          <Image
-            src="/zipcode.svg"
-            alt="zipdrop"
-            width={106}
-            height={28}
-            className="h-6 w-auto sm:h-8"
-            priority
-          />
-        </Link>
+    <div className="min-h-screen bg-[#F3F3F3] flex flex-col relative font-sans text-hendogray dm-sans">
+      {/* Header / Menu Button */}
+      <header className="absolute top-0 right-0 p-4 sm:p-10 z-50">
         <Menu />
       </header>
 
-      <main className="px-4 pb-20 sm:px-8 sm:pb-24">
+      <main className="flex-1 px-4 py-12 sm:px-8">
         <div className="mx-auto max-w-4xl">
+          {/* Logo */}
+          <div className="mb-8">
+            <Link href="/">
+              <Image
+                src="/zipcode.svg"
+                alt="zipdrop"
+                width={106}
+                height={28}
+                className="h-6 sm:h-8 w-auto"
+                priority
+              />
+            </Link>
+          </div>
 
           {/* Hero */}
           <div className="mb-16">

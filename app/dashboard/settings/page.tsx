@@ -190,12 +190,12 @@ export default function SettingsPage() {
               <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-4 transition-colors hover:bg-gray-50">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900">
-                      Email Notifications
-                    </p>
+                  <p className="font-medium text-gray-900">
+                    Email Notifications
+                  </p>
                     <p className="mt-1 text-sm text-gray-500">
-                      Receive email updates about your saved addresses
-                    </p>
+                    Receive email updates about your saved addresses
+                  </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
                     {savingField === "emailNotifications" && (
@@ -248,10 +248,10 @@ export default function SettingsPage() {
             <div className="space-y-4">
               <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-4">
                 <div className="flex flex-col gap-3">
-                  <div>
+              <div>
                     <label className="font-medium text-gray-900">
-                      Default Country
-                    </label>
+                  Default Country
+                </label>
                     <p className="mt-1 text-sm text-gray-500">
                       Set your preferred country for address verification
                     </p>
